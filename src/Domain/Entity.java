@@ -1,7 +1,10 @@
 package Domain;
 
-public abstract class Entity {
+public abstract class Entity implements java.io.Serializable{
     protected int id;
+
+    public Entity() {
+    }
 
     public Entity(int id) {
         this.id = id;

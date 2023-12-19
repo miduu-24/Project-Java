@@ -31,11 +31,11 @@ public class RepositoryTest {
         ArrayList<Cake> cakes = new ArrayList<>();
         cakes.add(new Cake(11, "cake11"));
         comandRepository.add(new Comand(11, cakes, "12.12.2020"));
-        assert comandRepository.findById(1).getCakes().size() == 6;
+        assert comandRepository.findById(11).getCakes() == cakes;
         ArrayList<Cake> cakes2 = new ArrayList<>();
         cakes2.add(new Cake(2, "cake2"));
-        comandRepository.update(1, new Comand(30, cakes2, "12.12.2020"));
-        assert comandRepository.findById(1).getCakes().size() == 1;
+        comandRepository.update(11, new Comand(30, cakes2, "12.12.2020"));
+        assert comandRepository.findById(30).getCakes() == cakes2;
 
         comandRepository.remove(30);
         assert comandRepository.getAll().size() == 5;

@@ -1,12 +1,20 @@
 package Service;
 
 import Domain.Cake;
-import Domain.Comand;
+import Repository.CakeRepository;
+import Repository.ComandRepository;
+import Repository.IRepository;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class ServiceCake extends AbstractService implements IServiceCake{
+public class ServiceCake implements IServiceCake{
+
+    private final IRepository<Cake> cakeRepository;
+
+    public ServiceCake(IRepository<Cake> cakeRepository) {
+        this.cakeRepository = cakeRepository;
+    }
     @Override
     public int generateIdCake() {
         Random random = new Random();

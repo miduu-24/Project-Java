@@ -3,11 +3,14 @@ package Domain;
 import java.util.ArrayList;
 
 
-public class Comand extends Entity {
+public class Comand extends Entity implements java.io.Serializable {
 
     ArrayList<Cake> cakes;
     String date;
 
+    public Comand() {
+        cakes = new ArrayList<Cake>();
+    }
     public Comand(int id, ArrayList<Cake> cakes, String data) throws ComandException {
         super(id);
         if (cakes.isEmpty()) {
@@ -19,14 +22,6 @@ public class Comand extends Entity {
 
     public ArrayList<Cake> getCakes() {
         return cakes;
-    }
-
-    public void addCake(Cake cake) {
-        cakes.add(cake);
-    }
-
-    public void removeCake(Cake cake) {
-        cakes.remove(cake);
     }
 
     public void setDate(String date) {

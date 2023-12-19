@@ -1,5 +1,6 @@
 package Repository;
 
+import Domain.Cake;
 import Domain.Entity;
 
 import java.util.ArrayList;
@@ -46,5 +47,17 @@ public class MemoryRepository<T extends Entity> extends AbstractRepository<T>{
     @Override
     public Collection<T> getAll() {
         return new ArrayList<>(list);
+    }
+
+    @Override
+    public void addCakeToComand(int comandId, Cake cake) throws RepositoryException {
+    }
+
+    @Override
+    public void removeCakeFromComand(int comandId, Cake cake) throws RepositoryException {
+    }
+
+    public int getSize() {
+        return list.size();
     }
 }

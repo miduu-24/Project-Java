@@ -1,0 +1,3 @@
+repo_type: text
+repo_file1: Caketext.txt
+repo_file2: Comandtext.txt

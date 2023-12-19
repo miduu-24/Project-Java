@@ -2,11 +2,23 @@ package Service;
 
 import Domain.Cake;
 import Domain.Comand;
+import Repository.CakeRepository;
+import Repository.ComandRepository;
+import Repository.IRepository;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
-public class ServiceComand extends AbstractService implements IServiceComand {
+public class ServiceComand implements IServiceComand {
+    private final IRepository<Comand> comandRepository;
+    private final IRepository<Cake> cakeRepository;
+
+    public ServiceComand(IRepository<Cake> cakeRepository, IRepository<Comand> comandRepository) {
+        this.comandRepository = comandRepository;
+        this.cakeRepository = cakeRepository;
+    }
+
     @Override
     public ArrayList<Cake> createCakeList(int[] ids) throws ServiceException {
         ArrayList<Cake> cakes = new ArrayList<>();
@@ -65,36 +77,7 @@ public class ServiceComand extends AbstractService implements IServiceComand {
             throw new ServiceException("Error updating comand: " + e);
         }
     }
-    @Override
-    public void addCakeToComand(int comandId, int cakeid) throws ServiceException {
-        try {
-            if (comandRepository.findById(comandId) == null) {
-                throw new ServiceException("Comand with id " + comandId + " does not exist!");
-            }
-            if (cakeRepository.findById(cakeid) == null) {
-                throw new ServiceException("Comand with id " + cakeid + " does not exist!");
-            }
-            Cake cake = cakeRepository.findById(cakeid);
-            comandRepository.addCakeToComand(comandId, cake);
-        } catch (Exception e) {
-            throw new ServiceException("Error adding cake to comand: " + e);
-        }
-    }
-    @Override
-    public void removeCakeFromComand(int comandId, int cakeid) throws ServiceException {
-        try {
-            if (comandRepository.findById(comandId) == null) {
-                throw new ServiceException("Comand with id " + comandId + " does not exist!");
-            }
-            if (cakeRepository.findById(cakeid) == null) {
-                throw new ServiceException("Comand with id " + cakeid + " does not exist!");
-            }
-            Cake cake = cakeRepository.findById(cakeid);
-            comandRepository.removeCakeFromComand(comandId, cake);
-        } catch (Exception e) {
-            throw new ServiceException("Error removing cake from comand: " + e);
-        }
-    }
+
 
     @Override
     public ArrayList<Comand> getAllComands() {

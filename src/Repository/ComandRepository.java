@@ -42,20 +42,4 @@ public class ComandRepository extends MemoryRepository<Comand> {
             throw new RuntimeException(e);
         }
     }
-
-    public void addCakeToComand(int comandId, Cake cake) throws RepositoryException {
-        Comand comand = this.findById(comandId);
-        if (comand == null) {
-            throw new RepositoryException("The comand does not exist!");
-        }
-        comand.addCake(cake);
-    }
-
-    public void removeCakeFromComand(int comandId, Cake cake) throws RepositoryException {
-        Comand comand = this.findById(comandId);
-        if (comand == null) {
-            throw new RepositoryException("The comand does not exist!");
-        }
-        comand.removeCake(cake);
-    }
 }

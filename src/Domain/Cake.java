@@ -1,10 +1,10 @@
 package Domain;
 
-import java.util.ArrayList;
-
-public class Cake extends Entity {
+public class Cake extends Entity implements java.io.Serializable{
     private String type;
+    public Cake(){
 
+    }
     public Cake(int id, String type) {
         super(id);
         this.type = type;

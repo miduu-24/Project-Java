@@ -4,11 +4,10 @@ import Domain.Entity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 public abstract class AbstractRepository<T extends Entity> implements IRepository<T> {
 
-    protected List<T> list = new ArrayList<>();
+    protected ArrayList<T> list = new ArrayList<>();
 
     @Override
     public Iterator<T> iterator() {

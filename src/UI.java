@@ -1,13 +1,25 @@
 import Domain.Cake;
+import Repository.CakeRepository;
+import Repository.ComandRepository;
+import Service.ServiceCake;
+import Service.ServiceComand;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UI implements IUI{
 
+    private final ServiceCake serviceCake;
+    private final ServiceComand serviceComand;
+
+    public UI(ServiceCake serviceCake, ServiceComand serviceComand) {
+        this.serviceCake = serviceCake;
+        this.serviceComand = serviceComand;
+    }
 
     @Override
     public void run() {
+
         while (true) {
             try {
                 printMenu();
@@ -48,14 +60,6 @@ public class UI implements IUI{
                     case 8:
                         System.out.println("All comands: ");
                         printAllComands();
-                        break;
-                    case 9:
-                        addCakeToComand(validator, scanner);
-                        System.out.println("Cake added to comand");
-                        break;
-                    case 10:
-                        removeCakeFromComand(validator, scanner);
-                        System.out.println("Cake removed from comand");
                         break;
                     case 0:
                         System.out.println("Bye!");
@@ -187,42 +191,6 @@ public class UI implements IUI{
     }
 
     @Override
-    public void addCakeToComand(Validator validator, Scanner scanner) throws UIException {
-        try {
-            System.out.println("Comand id: ");
-            String comandId = scanner.nextLine();
-            int id_comand = validator.intValidator(comandId);
-
-            System.out.println("Cake id: ");
-            String cakeId = scanner.nextLine();
-            int id_cake = validator.intValidator(cakeId);
-
-            serviceComand.addCakeToComand(id_comand, id_cake);
-        } catch (Exception e) {
-            throw new UIException("Error adding cake to comand: " + e);
-        }
-
-    }
-
-    @Override
-    public void removeCakeFromComand(Validator validator, Scanner scanner) throws UIException {
-        try {
-            System.out.println("Comand id: ");
-            String comandId = scanner.nextLine();
-            int id_comand = validator.intValidator(comandId);
-
-            System.out.println("Cake id: ");
-            String cakeId = scanner.nextLine();
-            int id_cake = validator.intValidator(cakeId);
-
-            serviceComand.removeCakeFromComand(id_comand, id_cake);
-        } catch (Exception e) {
-            throw new UIException("Error removing cake from comand: " + e);
-        }
-
-    }
-
-    @Override
     public void printMenu() {
         System.out.println(" ");
         System.out.println("Menu:");
@@ -237,8 +205,6 @@ public class UI implements IUI{
         System.out.println("6. Remove comand");
         System.out.println("7. Update comand");
         System.out.println("8. Print all comands");
-        System.out.println("9. Add cake to comand");
-        System.out.println("10. Remove cake from comand");
         System.out.println("0. Exit");
         System.out.println(" ");
     }
