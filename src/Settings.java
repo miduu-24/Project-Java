@@ -9,11 +9,13 @@ public class Settings {
 
     private final String repoFile1;
     private final String repoFile2;
+    private final String start;
 
-    private Settings(String repoType, String repoFile1, String repoFile2) {
+    private Settings(String repoType, String repoFile1, String repoFile2, String start) {
         this.repoType = repoType;
         this.repoFile1 = repoFile1;
         this.repoFile2 = repoFile2;
+        this.start = start;
     }
 
     public String getRepoFile1() {
@@ -24,6 +26,8 @@ public class Settings {
     public String getRepoType() {
         return repoType;
     }
+
+    public String getStart() {return start;}
 
     private static Properties loadSettings() {
         try (FileReader fr = new FileReader("settings.txt")) {
@@ -38,7 +42,8 @@ public class Settings {
     public static synchronized Settings getInstance() {
         Properties properties = loadSettings();
         // TODO De vazut ce se intampla daca setarea nu e in fisier
-        instance = new Settings(properties.getProperty("repo_type"), properties.getProperty("repo_file1"), properties.getProperty("repo_file2"));
+        instance = new Settings(properties.getProperty("repo_type"), properties.getProperty("repo_file1"),
+                properties.getProperty("repo_file2"), properties.getProperty("start"));
         return instance;
     }
 }

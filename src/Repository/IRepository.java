@@ -15,7 +15,4 @@ public interface IRepository<T extends Entity> extends Iterable<T> {
 
     Collection<T> getAll();
 
-    void addCakeToComand(int comandId, Cake cake) throws RepositoryException;
-
-    void removeCakeFromComand(int comandId, Cake cake) throws RepositoryException;
 }

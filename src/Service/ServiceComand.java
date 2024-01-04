@@ -6,9 +6,7 @@ import Repository.CakeRepository;
 import Repository.ComandRepository;
 import Repository.IRepository;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Random;
+import java.util.*;
 
 public class ServiceComand implements IServiceComand {
     private final IRepository<Comand> comandRepository;
@@ -83,4 +81,83 @@ public class ServiceComand implements IServiceComand {
     public ArrayList<Comand> getAllComands() {
         return (ArrayList<Comand>) comandRepository.getAll();
     }
+
+    @Override
+    public ArrayList<String> getNumberOfCakes() {
+        ArrayList<String> numberOfCakes = new ArrayList<>();
+        for (Comand comand : comandRepository.getAll()) {
+            int ok = 0;
+            for (String number : numberOfCakes) {
+                if (number.contains(comand.getDate())) {
+                    int index = numberOfCakes.indexOf(number);
+                    numberOfCakes.set(index, comand.getDate() + ": " + (Integer.parseInt(number.split(": ")[1]) + comand.getCakes().size()) + "");
+                    ok = 1;
+                }
+            }
+            if (ok == 0)
+                numberOfCakes.add(comand.getDate() + ": " + comand.getCakes().size() + "");
+        }
+        ArrayList<String> sorted = Asort(numberOfCakes);
+        return sorted;
+    }
+
+    @Override
+    public ArrayList<String> getNumberOfCakesByEveryMonth() {
+        ArrayList<String> numberOfCakes = new ArrayList<>();
+        for (Comand comand : comandRepository.getAll()) {
+            int ok = 0;
+            String[] data = comand.getDate().split("\\.");
+            String month = data[1];
+            for (String number : numberOfCakes) {
+                if (number.contains(month)) {
+                    int index = numberOfCakes.indexOf(number);
+                    numberOfCakes.set(index, month + ": " + (Integer.parseInt(number.split(": ")[1]) + comand.getCakes().size()) + "");
+                    ok = 1;
+                }
+            }
+            if (ok == 0)
+                numberOfCakes.add(month + ": " + comand.getCakes().size() + "");
+        }
+        ArrayList<String> sorted = Asort(numberOfCakes);
+        return sorted;
+    }
+
+    private ArrayList<String> Asort(ArrayList<String> numberOfCakes) {
+        ArrayList<String> sorted = new ArrayList<>();
+        while (numberOfCakes.size() != 0) {
+            int max = 0;
+            int index = 0;
+            for (int i = 0; i < numberOfCakes.size(); i++) {
+                if (Integer.parseInt(numberOfCakes.get(i).split(": ")[1]) > max) {
+                    max = Integer.parseInt(numberOfCakes.get(i).split(": ")[1]);
+                    index = i;
+                }
+            }
+            sorted.add(numberOfCakes.get(index));
+            numberOfCakes.remove(index);
+        }
+        return sorted;
+    }
+
+    @Override
+    public ArrayList<String> getNumberOfComandsByEveryCake(){
+        ArrayList<String> numberOfComands = new ArrayList<>();
+        for (Comand comand : comandRepository.getAll()) {
+            for (Cake cake : comand.getCakes()) {
+                int ok = 0;
+                for (String number : numberOfComands) {
+                    if (number.contains(cake.getType())) {
+                        int index = numberOfComands.indexOf(number);
+                        numberOfComands.set(index, cake.getType() + ": " + (Integer.parseInt(number.split(": ")[1]) + 1) + "");
+                        ok = 1;
+                    }
+                }
+                if (ok == 0)
+                    numberOfComands.add(cake.getType() + ": " + 1 + "");
+            }
+        }
+        ArrayList<String> sorted = Asort(numberOfComands);
+        return sorted;
+    }
+
 }

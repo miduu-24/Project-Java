@@ -1,13 +1,16 @@
+package UI;
+
 import Domain.Cake;
-import Repository.CakeRepository;
-import Repository.ComandRepository;
 import Service.ServiceCake;
 import Service.ServiceComand;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UI implements IUI{
+import Validator.Validator;
+import Validator.ValidatorException;
+
+public class UI implements IUI {
 
     private final ServiceCake serviceCake;
     private final ServiceComand serviceComand;
@@ -60,6 +63,18 @@ public class UI implements IUI{
                     case 8:
                         System.out.println("All comands: ");
                         printAllComands();
+                        break;
+                    case 9:
+                        System.out.println("Number of cakes: ");
+                        printNumberOfCakes();
+                        break;
+                    case 10:
+                        System.out.println("Number of cakes by every month: ");
+                        printNumberOfCakesByEveryMonth();
+                        break;
+                    case 11:
+                        System.out.println("Number of comands by every cake: ");
+                        printNumberOfComandsByEveryCake();
                         break;
                     case 0:
                         System.out.println("Bye!");
@@ -125,6 +140,7 @@ public class UI implements IUI{
         try{
             System.out.println("New date: ");
             String date = scanner.nextLine();
+            String data = validator.dataValidator(date);
 
             System.out.println("Numbers new cakes: ");
             String numberCakes = scanner.nextLine();
@@ -137,7 +153,7 @@ public class UI implements IUI{
                 ids[i] = id_cake;
             }
             ArrayList<Cake> cakes = serviceComand.createCakeList(ids);
-            serviceComand.addComand(cakes, date);
+            serviceComand.addComand(cakes, data);
         }
         catch (Exception e) {
             throw new UIException("Error adding comand: " + e);
@@ -165,6 +181,7 @@ public class UI implements IUI{
 
             System.out.println("New date: ");
             String date = scanner.nextLine();
+            String data = validator.dataValidator(date);
 
             System.out.println("Numbers new cakes: ");
             String numberCakes = scanner.nextLine();
@@ -177,7 +194,7 @@ public class UI implements IUI{
                 ids[i] = id_cake;
             }
             ArrayList<Cake> cakes = serviceComand.createCakeList(ids);
-            serviceComand.updateComand(id, cakes, date);
+            serviceComand.updateComand(id, cakes, data);
         } catch (Exception e) {
             throw new UIException("Error updating comand: " + e);
         }
@@ -188,6 +205,21 @@ public class UI implements IUI{
     @Override
     public void printAllComands() {
         serviceComand.getAllComands().forEach(System.out::println);
+    }
+
+    @Override
+    public void printNumberOfCakes() {
+        serviceComand.getNumberOfCakes().forEach(System.out::println);
+    }
+
+    @Override
+    public void printNumberOfCakesByEveryMonth() {
+        serviceComand.getNumberOfCakesByEveryMonth().forEach(System.out::println);
+    }
+
+    @Override
+    public void printNumberOfComandsByEveryCake() {
+        serviceComand.getNumberOfComandsByEveryCake().forEach(System.out::println);
     }
 
     @Override
@@ -205,6 +237,10 @@ public class UI implements IUI{
         System.out.println("6. Remove comand");
         System.out.println("7. Update comand");
         System.out.println("8. Print all comands");
+        System.out.println(" ");
+        System.out.println("9. Print number of cakes");
+        System.out.println("10. Print number of cakes by every month");
+        System.out.println("11. Print number of comands by every cake");
         System.out.println("0. Exit");
         System.out.println(" ");
     }

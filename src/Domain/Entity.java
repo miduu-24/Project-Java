@@ -19,4 +19,8 @@ public abstract class Entity implements java.io.Serializable{
                 "id='" + id + '\'' +
                 '}';
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

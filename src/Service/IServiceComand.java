@@ -12,5 +12,8 @@ public interface IServiceComand {
     void addComand(ArrayList<Cake> cakes, String date) throws ServiceException;
     void removeComand(int id) throws ServiceException;
     void updateComand(int id, ArrayList<Cake> cakes, String date) throws ServiceException;
+    ArrayList<String> getNumberOfCakes();
+    ArrayList<String> getNumberOfCakesByEveryMonth();
+    ArrayList<String> getNumberOfComandsByEveryCake();
    Collection<Comand> getAllComands();
 }

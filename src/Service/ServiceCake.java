@@ -65,4 +65,9 @@ public class ServiceCake implements IServiceCake{
     public ArrayList<Cake> getAllCakes() {
         return (ArrayList<Cake>) cakeRepository.getAll();
     }
+
+    @Override
+    public Cake findbyId(int id) {
+        return cakeRepository.findById(id);
+    }
 }

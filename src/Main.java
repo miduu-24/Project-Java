@@ -3,6 +3,8 @@ import Repository.*;
 import Service.ServiceCake;
 import Service.ServiceComand;
 import Service.ServiceException;
+import UI.UI;
+import UI.JavaFX;
 
 import java.util.Objects;
 
@@ -28,11 +30,24 @@ public class Main {
             repoComand = new BinaryRepository<>(setari.getRepoFile2());
        }
 
-
+       if (Objects.equals(setari.getRepoType(), "sql")) {
+            repoCake = new CakeSQLRepository(setari.getRepoFile1());
+            repoComand = new ComandSQLRepository(setari.getRepoFile2());
+       }
 
         ServiceCake serviceCake = new ServiceCake(repoCake);
         ServiceComand serviceComand = new ServiceComand(repoCake, repoComand);
-        UI ui = new UI(serviceCake, serviceComand);
-        ui.run();
+
+        if(Objects.equals(setari.getStart(),"javafx"))
+        {
+            JavaFX.setCake(serviceCake);
+            JavaFX.setServiceComand(serviceComand);
+            JavaFX.launch(JavaFX.class);
+        }
+        else
+        {
+            UI ui = new UI(serviceCake, serviceComand);
+            ui.run();
+        }
     }
 }

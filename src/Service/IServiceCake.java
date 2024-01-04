@@ -1,5 +1,7 @@
 package Service;
 
+import Domain.Cake;
+
 import java.util.Collection;
 
 public interface IServiceCake {
@@ -9,6 +11,8 @@ public interface IServiceCake {
     void removeCake(int id) throws ServiceException;
     void updateCake(int id_1, String type) throws ServiceException;
     Collection getAllCakes();
+
+    Cake findbyId(int id);
 
 
 }

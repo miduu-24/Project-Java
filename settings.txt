@@ -1,3 +1,4 @@
-repo_type: text
-repo_file1: Caketext.txt
-repo_file2: Comandtext.txt
+repo_type: sql
+repo_file1: project.bd
+repo_file2: project.bd
+start: javafx
