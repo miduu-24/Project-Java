@@ -1,4 +1,0 @@
-repo_type: sql
-repo_file1: project.bd
-repo_file2: project.bd
-start: javafx
